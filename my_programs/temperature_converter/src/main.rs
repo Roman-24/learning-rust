@@ -1,47 +1,58 @@
 use std::io;
 
-fn convert_from_celsius_to_fahrenheit(input: f32) -> f32 {
-    return input * 1.8 + 32.0
+fn convert_celsius_to_fahrenheit(celsius: f32) -> f32 {
+    celsius * 1.8 + 32.0
 }
 
-fn convert_from_fahrenheit_to_celsius(input: f32) -> f32 {
-    return (input - 32.0) / 1.8
+fn convert_fahrenheit_to_celsius(fahrenheit: f32) -> f32 {
+    (fahrenheit - 32.0) / 1.8
+}
+
+enum ConversionChoice {
+    CelsiusToFahrenheit,
+    FahrenheitToCelsius,
 }
 
 fn main() {
-    println!("Hello, weolcome to Temperature converter!");
+    println!("Hello, welcome to the Temperature Converter!");
 
-    println!("Choose what you want to convert");
-    println!("For convert from Celsius to Fahrenheit input 1");
-    println!("For convert from Fahrenheit to Celsius input 2");
+    println!("Choose the conversion type:");
+    println!("1: Celsius to Fahrenheit");
+    println!("2: Fahrenheit to Celsius");
 
-    let mut user_choose = String::new();
-
+    let mut user_choice = String::new();
     io::stdin()
-        .read_line(&mut user_choose)
-        .expect("Fail to read line");
+        .read_line(&mut user_choice)
+        .expect("Failed to read line");
 
-    user_choose = user_choose.trim().to_string() ;
+    let user_choice: ConversionChoice = match user_choice.trim() {
+        "1" => ConversionChoice::CelsiusToFahrenheit,
+        "2" => ConversionChoice::FahrenheitToCelsius,
+        _ => {
+            println!("Invalid choice. Please restart the program and choose 1 or 2.");
+            return;
+        }
+    };
 
-    println!("Input your value: ");
+    println!("Input your temperature value:");
 
     let mut user_value = String::new();
-
     io::stdin()
         .read_line(&mut user_value)
-        .expect("Fail to read line");
+        .expect("Failed to read line");
 
     let user_value: f32 = match user_value.trim().parse() {
         Ok(num) => num,
-        Err(_) => panic!("Can not parse yoour value!"),
+        Err(_) => {
+            println!("Invalid input. Please restart the program and enter a valid number.");
+            return;
+        }
     };
 
-    if user_choose == "1" {
-        println!("Your result is: {}", convert_from_celsius_to_fahrenheit(user_value));
-    } else if user_choose == "2" {
-        println!("Your result is: {}", convert_from_fahrenheit_to_celsius(user_value));
-    } else {
-        println!("Your choose does not exist :(");
-    }
+    let result = match user_choice {
+        ConversionChoice::CelsiusToFahrenheit => convert_celsius_to_fahrenheit(user_value),
+        ConversionChoice::FahrenheitToCelsius => convert_fahrenheit_to_celsius(user_value),
+    };
 
+    println!("The converted temperature is: {}", result);
 }
