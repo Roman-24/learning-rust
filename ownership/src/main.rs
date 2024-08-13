@@ -1,18 +1,32 @@
+fn first_word(s: &str) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
+}
+
 fn main() {
-    let s1 = String::from("hello");
+    let my_string = String::from("hello world");
 
-    let len = calculate_length(&s1);
-    println!("The length of '{s1}' is {len}.");
+    // `first_word` works on slices of `String`s, whether partial or whole
+    let word = first_word(&my_string[0..6]);
+    let word = first_word(&my_string[..]);
+    // `first_word` also works on references to `String`s, which are equivalent
+    // to whole slices of `String`s
+    let word = first_word(&my_string);
 
-    let mut s2 = String::from("hello");
-    change(&mut s2);
-}
+    let my_string_literal = "hello world";
 
-fn calculate_length(s: &String) -> usize {
-    s.len()
-}
+    // `first_word` works on slices of string literals, whether partial or whole
+    let word = first_word(&my_string_literal[0..6]);
+    let word = first_word(&my_string_literal[..]);
 
-fn change(some_string: &mut String) {
-    some_string.push_str(", world");
-    println!("{}", some_string)
+    // Because string literals *are* string slices already,
+    // this works too, without the slice syntax!
+    let word = first_word(my_string_literal);
 }
