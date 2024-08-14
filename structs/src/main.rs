@@ -1,9 +1,20 @@
-struct Color(i32, i32, i32);
-struct Point(i32, i32, i32);
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+fn area(rectangle: &Rectangle) -> u32 {
+    rectangle.width * rectangle.height
+}
 
 fn main() {
-    let black = Color(0, 0, 0);
-    let origin = Point(0, 10, -20);
+    let rectangle1 = Rectangle {
+        width: 30,
+        height: 40,
+    };
 
-    println!("x: {}, y: {}, z: {}", origin.0, origin.1, origin.2);
+    println!(
+        "The area of the rectangle is {} square pixels.",
+        area(&rectangle1)
+    );
 }
