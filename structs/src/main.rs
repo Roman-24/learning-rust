@@ -8,6 +8,13 @@ impl Rectangle {
     fn area(&self) -> u32 {
         self.width * self.height
     }
+
+    fn square(size: u32) -> Self {
+        Self {
+            width: size,
+            height: size,
+        }
+    }
 }
 
 fn main() {
@@ -26,4 +33,7 @@ fn main() {
     println!("rectangle is {rectangle1:#?}");
 
     dbg!(&rectangle1);
+
+    let squar = Rectangle::square(5);
+    dbg!(&squar);
 }
