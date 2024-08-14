@@ -22,5 +22,12 @@ fn main() {
 
     user1.email = String::from("anotheremail@example.com");
 
-    println!("User email is: {}", user1.email);
+    println!("User1 email is: {}", user1.email);
+
+    let user2 = User {
+        email: String::from("another@example.com"),
+        ..user1
+    };
+
+    println!("User2 email is: {}", user2.email);
 }
