@@ -29,6 +29,13 @@ fn value_in_cents(coin: EuroShitcoin) -> f32 {
     }
 }
 
+fn test_letif() {
+    let config_max = Some(24u8); // set max value to u8
+    if let Some(max) = config_max {
+        println!("The maximum is configured to be {max}");
+    }
+}
+
 fn main() {
     let coin = EuroShitcoin::TenCent(0.10);
     println!("Value in cents: {:?}", value_in_cents(coin));
@@ -50,4 +57,6 @@ fn main() {
 
     let coin = EuroShitcoin::PaperBanknote("wrong".to_string());
     println!("Value in cents: {:?}", value_in_cents(coin));
+
+    test_letif();
 }
