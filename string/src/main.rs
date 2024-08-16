@@ -1,27 +1,34 @@
 fn main() {
-    let s1 = String::from("tic");
-    let s2 = String::from("tac");
-    let s3 = String::from("toe");
+    use std::collections::HashMap;
 
-    let s = format!("{s1}-{s2}-{s3}");
+    let mut scores = HashMap::new();
 
-    println!("{}", s);
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Yellow"), 50);
 
-    println!("{}", s1);
-    println!("{}", s2);
-    println!("{}", s3);
+    let team_name = String::from("Blue");
+    let score = scores.get(&team_name).copied().unwrap_or(0);
 
-    for c in s.chars() {
-        if c == '-' {
-            print!(".");
-        } else {
-            print!("{}", c);
-        }
+    println!("Score of team {} is {}", team_name, score);
+
+    // iteration over hashmap
+    for (key, value) in &scores {
+        println!("{key}: {value}");
     }
-    println!();
 
-    for b in s.bytes() {
-        print!("{b} ");
+    // overwriting a value
+    scores.insert(String::from("Blue"), 25);
+    println!("{scores:?}");
+
+    // only inserting if the key has no value
+    scores.entry(String::from("Blue")).or_insert(420);
+    println!("{scores:?}");
+
+    let text = "hello world wonderful world";
+    let mut map = HashMap::new();
+    for word in text.split_whitespace() {
+        let count = map.entry(word).or_insert(0);
+        *count += 1;
     }
-    println!();
+    println!("{map:?}");
 }
