@@ -10,4 +10,18 @@ fn main() {
     println!("{}", s1);
     println!("{}", s2);
     println!("{}", s3);
+
+    for c in s.chars() {
+        if c == '-' {
+            print!(".");
+        } else {
+            print!("{}", c);
+        }
+    }
+    println!();
+
+    for b in s.bytes() {
+        print!("{b} ");
+    }
+    println!();
 }
