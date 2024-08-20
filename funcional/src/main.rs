@@ -20,4 +20,15 @@ fn main() {
     println!("{}", add_one_v2(2));
     println!("{}", add_one_v3(3));
     println!("{}", add_one_v4(4));
+
+    println!();
+
+    let list = vec![1, 2, 3];
+    println!("Before defining closure: {list:?}");
+
+    let only_borrows = || println!("From closure: {list:?}");
+
+    println!("Before calling closure: {list:?}");
+    only_borrows();
+    println!("After calling closure: {list:?}");
 }
