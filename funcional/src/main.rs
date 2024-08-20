@@ -1,10 +1,23 @@
+use std::{thread, time::Duration};
+
 fn main() {
-    // define a closure and store it in a variable
-    let add_one = |x: i32| x + 1;
+    let expensive_closure = |num: u32| -> u32 {
+        println!("calculating slowly...");
+        thread::sleep(Duration::from_secs(2));
+        num
+    };
 
-    // call closure and store the result in a variable
-    let x = 5;
-    let result = add_one(x);
+    println!("{}", expensive_closure(1));
 
-    println!("Result = {}", result);
+    fn add_one_v1(x: u32) -> u32 {
+        x + 1
+    }
+    let add_one_v2 = |x: u32| -> u32 { x + 1 };
+    let add_one_v3 = |x| x + 1;
+    let add_one_v4 = |x| x + 1;
+
+    println!("{}", add_one_v1(1));
+    println!("{}", add_one_v2(2));
+    println!("{}", add_one_v3(3));
+    println!("{}", add_one_v4(4));
 }
