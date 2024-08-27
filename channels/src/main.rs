@@ -6,8 +6,7 @@ fn main() {
 
     thread::spawn(move || {
         let val = String::from("hi");
-        tx.send(val.clone()).unwrap();
-        println!("val is {val}");
+        tx.send(val).unwrap();
     });
 
     let received = rx.recv().unwrap();
